@@ -1,0 +1,8 @@
+Flask
+Flask-SQLAlchemy
+tensorflow
+keras
+numpy
+pillow
+scikit-learn
+gunicorn
