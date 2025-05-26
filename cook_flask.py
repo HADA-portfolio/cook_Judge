@@ -36,13 +36,13 @@ HTML_HEADER = f"""
 /*スマホの画面（600px以下）のときに文字やボタンを大きくする*/
 @media screen and (max-width: 600px) {{
     body {{
-        font-size: 1.5em;
+        font-size: 2em;
     }}
     input, button, .button {{
-        font-size: 1.5em;
+        font-size: 2em;
     }}
     h1, h2 {{
-        font-size: 1.5em;
+        font-size: 2em;
     }}
 }}
 </style>
