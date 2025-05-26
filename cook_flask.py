@@ -49,7 +49,7 @@ HTML_HEADER = f"""
 </head>
 <body>
 <section class="hero has-background-info"><div class="hero-body">
-    <h1 class="title">料理画像から栄養を予測</h1></div></section>
+    <h1 class="title">料理画像から栄養予測</h1></div></section>
 """
 
 #Flask アプリを作る準備
