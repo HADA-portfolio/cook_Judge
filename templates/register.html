@@ -7,11 +7,14 @@
     <!--ブラウザのタブに表示されるタイトルを設定-->
     <title>ユーザー登録</title>
     <style>
-        body {
-            font-size: 1.5em; /* 全体の文字を1.5倍にする */
-        }
-        input, button {
-            font-size: 1.5em; /* 入力ボックスやボタンの文字も大きくする */
+        /* スマホのときだけ文字を大きくする */
+        @media screen and (max-width: 600px) {
+            body {
+                font-size: 1.7em;  /* スマホだけ1.7倍にする */
+            }
+            input, button, label, a, h1 {
+                font-size: 1.7em;  /* スマホで入力欄・ボタンの文字も大きく */
+            }
         }
     </style>
 </head>
