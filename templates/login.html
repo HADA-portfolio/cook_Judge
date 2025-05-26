@@ -1,0 +1,24 @@
+<!--ログイン画面のHTMLファイル-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <!--ブラウザのタブに表示されるタイトルを設定-->
+    <title>ログイン</title>
+</head>
+<body>
+    <!--見出しを設定-->
+    <h1>ログイン</h1>
+    <!--ログイン画面の項目（メールアドレス・パスワード入力欄、ログインボタン）を配置-->
+    <form action="{{ url_for('login')}}" method="POST">
+        <label for="email">メールアドレス</label>
+        <input type="email" name="email" required><br><br>
+        <label for="password">パスワード</label>
+        <input type="password" name="password" required><br><br>
+        <button type="submit">ログイン</button>
+    </form> 
+    <!--ユーザー登録ボタンを配置-->
+    <a href="{{ url_for('register')}}">ユーザー登録</a>
+</body>
+</html>

@@ -1,8 +1,14 @@
+#デプロイ用に必要なライブラリを列挙
+
 Flask
 Flask-SQLAlchemy
+Flask-Mail
+Flask-Login
 tensorflow
 keras
 numpy
 pillow
 scikit-learn
 gunicorn
+pandas
+pyotp

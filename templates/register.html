@@ -1,0 +1,22 @@
+<!--ユーザー登録画面のHTMLファイル-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <!--ブラウザのタブに表示されるタイトルを設定-->
+    <title>ユーザー登録</title>
+</head>
+<body>
+    <!--見出しを設定-->
+    <h1>ユーザー登録</h1>
+    <!--ユーザー登録画面の項目（メールアドレス・パスワード入力欄、登録ボタン）を配置-->
+    <form action="{{ url_for('register')}}" method="POST">
+        <label for="email">メールアドレス</label>
+        <input type="email" name="email" required><br><br>
+        <label for="password">パスワード</label>
+        <input type="password" name="password" required><br><br>
+        <button type="submit">登録</button>
+    </form> 
+</body>
+</html>
