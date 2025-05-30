@@ -36,13 +36,13 @@ HTML_HEADER = f"""
 /*スマホの画面（600px以下）のときに文字やボタンを大きくする*/
 @media screen and (max-width: 600px) {{
     body {{
-        font-size: 1.5em;
+        font-size: 1em;
     }}
     input, button, .button {{
-        font-size: 1.5em;
+        font-size: 1em;
     }}
     h1, h2 {{
-        font-size: 1.5em;
+        font-size: 1em;
     }}
 }}
 </style>
@@ -99,18 +99,19 @@ login_manager.init_app(app) #アプリとログイン機能を連携させる
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# ワンタイムパスワードをメールで送信する関数
+#ワンタイムパスワードをメールで送信する関数
 def send_otp(email, secret):
-    # secretを使って、60秒ごとに変わるワンタイムパスワードをつくる
+    #secretを使って、60秒ごとに変わるワンタイムパスワードをつくる
     totp = pyotp.TOTP(secret, interval=60)
-    otp_code = totp.now()  # 今すぐ使えるワンタイムパスワードを生成
+    #現時点で使えるワンタイムパスワードの数字を作る
+    otp_code = totp.now()
 
-    # メールの内容をつくる
+    #メールの内容をつくる
     msg = Message('ワンタイムパスワード（OTP）', recipients=[email])
     msg.body = f"あなたのワンタイムパスワードは {otp_code} です。60秒間有効です"
 
-    mail.send(msg)  # メールを送信
-
+    #メールを送信
+    mail.send(msg) 
 
 #ユーザー登録ページの設定
 @app.route('/register', methods=['GET', 'POST'])
@@ -139,31 +140,34 @@ def register():
     #登録フォームの画面を表示
     return render_template('register.html')
 
-# トップページ（ログイン画面）の設定
+#トップページ（ログイン画面）の設定
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    # ログインボタンを押したら
+    #ログインボタンを押したら
     if request.method == 'POST':
+        #フォームに入力されたメールとパスワードを取り出す
         email = request.form['email']
         password = request.form['password']
 
-        # データベースからメールアドレスのユーザーを探す
+        #データベースからメールアドレスのユーザーを探す
         user = User.query.filter_by(email=email).first()
 
-        # ユーザーが存在していて、パスワードも合っていたら
+        #ユーザーが存在していて、パスワードも合っていたら
         if user and user.password == password:
-            secret = pyotp.random_base32()  # 先にシークレットキーを作る
-            session['otp_secret'] = secret  # セッションに保存（後で使うため）
+            secret = pyotp.random_base32()  #ランダムなシークレットキーを生成
+            #セッションにシークレットキーとメールアドレスを保存
+            session['otp_secret'] = secret
             session['email'] = email
+            #メール送信
+            send_otp(email, secret) 
 
-            send_otp(email, secret)  # メール送信：secretを渡してずれないように
+            #ワンタイムパスワード入力画面へ
+            return redirect(url_for('verify')) 
 
-            return redirect(url_for('verify'))  # ワンタイムパスワード入力画面へ
-
-        # メールやパスワードが違っていた場合
+        #メールやパスワードが違っていた場合
         return '認証情報が無効です。'
 
-    # 最初にページを開いたときなどは、ログイン画面を表示
+    #最初にページを開いたときなどは、ログイン画面を表示
     return render_template('login.html')
 
 
